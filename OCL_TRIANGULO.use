@@ -1,0 +1,35 @@
+model AreaDoTriangulo
+
+--classes
+
+class Triangulo
+	attributes
+		lado1:Real
+		lado2:Real
+		lado3:Real  
+	operations 
+		Area(l1:Real, l2:Real, l3:Real): Real
+	end
+
+constraints 
+
+context Triangulo 
+	inv LADOa: self.lado1>0
+	inv LADOb: self.lado2>0
+	inv LADOc: self.lado3>0
+	inv ladoSL1: (self.lado3+self.lado2)>self.lado1
+	inv ladoSL2: (self.lado1+self.lado3)>self.lado2
+	inv ladoSL3: (self.lado1+self.lado2)>self.lado3
+	
+
+context Triangulo:: Area(l1:Real, l2:Real, l3:Real) : Real
+	pre lado1MZero: l1>0
+	pre lado2MZero: l2>0
+	pre lado3MZero: l3>0
+	post Resultadao: result>0
+	
+context Triangulo:: Area(l1:Real, l2:Real, l3:Real) : Real 
+	pre ladoSum1: (l1+l2)>l3
+	pre ladoSum2: (l3+l2)>l1
+	pre ladoSum3: (l1+l3)>l2
+	post Resultado: result>0
